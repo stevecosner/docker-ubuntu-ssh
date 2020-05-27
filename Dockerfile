@@ -6,6 +6,8 @@ RUN apt-get update
 
 RUN apt-get install openssh-server -y
 
+RUN apt-get install sudo -y
+
 RUN mkdir /root/.ssh
 
 ADD authorized_keys /root/.ssh
@@ -43,4 +45,10 @@ RUN chown steve:steve /home/steve/.ssh/authorized_keys
 RUN chmod 700 /home/steve/.ssh
 
 RUN chmod 600 /home/steve/.ssh/authorized_keys
+
+RUN echo 'steve ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ADD .profile /home/steve
+
+ADD .bashrc /home/steve 
 
